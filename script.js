@@ -1,4 +1,5 @@
 (() => {
+  const english = document.documentElement.lang === 'en';
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const slides = [...document.querySelectorAll('.hero-slide')];
   const buttons = [...document.querySelectorAll('[data-slide]')];
@@ -11,8 +12,8 @@
   };
   const sync = () => {
     clearInterval(timer);
-    pause.textContent = paused ? 'Tęsti' : 'Pauzė';
-    pause.setAttribute('aria-label', paused ? 'Tęsti nuotraukų kaitą' : 'Sustabdyti nuotraukų kaitą');
+    pause.textContent = english ? (paused ? 'Play' : 'Pause') : (paused ? 'Tęsti' : 'Pauzė');
+    pause.setAttribute('aria-label', english ? (paused ? 'Play slideshow' : 'Pause slideshow') : (paused ? 'Tęsti nuotraukų kaitą' : 'Sustabdyti nuotraukų kaitą'));
     if (!paused && !document.hidden) timer = setInterval(() => show(index + 1), 6500);
   };
   buttons.forEach(button => button.addEventListener('click', () => {show(Number(button.dataset.slide));sync();}));
